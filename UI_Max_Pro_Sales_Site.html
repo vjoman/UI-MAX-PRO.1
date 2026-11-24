@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="UI Max Pro — a perpetual-license UI design tool you own forever. One-time price. No per-seat-per-month tax. Ship pixel-perfect UI four times faster.">
+<title>UI Max Pro — The Last Design License Your Team Will Ever Buy</title>
+<style>
+  :root{
+    --navy-900:#0a1628; --navy-800:#0f1f38; --navy-700:#1a2f4f;
+    --navy-600:#1a4a7a; --navy-500:#2d5f8a;
+    --blue-glow:#4da8da; --blue-mid:#2d7ab3; --blue-soft:#7fb8db;
+    --cool-white:#e8f0f8; --text-dark:#142840; --text-muted:#5a7a96;
+    --card-bg:#f5f8fc; --section-bg:#edf2f9; --border:#c0d0e2;
+    --gold:#b8995a; --gold-bright:#c9a85a; --gold-soft:#e8dab0;
+    --success:#3a8f6a; --warning:#b8853a; --error:#a04848;
+    --shadow-sm:0 1px 3px rgba(20,40,64,.08);
+    --shadow-md:0 4px 18px rgba(20,40,64,.10);
+    --shadow-lg:0 14px 40px rgba(10,22,40,.18);
+    --radius:14px; --radius-lg:22px;
+    --maxw:1180px;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-serif: Georgia, "Times New Roman", serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font-sans);
+    color:var(--text-dark);
+    background:#fff;
+    line-height:1.6;
+    font-size:16px;
+    overflow-x:hidden;
+  }
+  a{color:var(--blue-mid);text-decoration:none}
+  a:hover{text-decoration:underline}
+  img,svg,canvas{max-width:100%;height:auto}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(16px,4vw,32px);width:100%}
+  section{padding:clamp(48px,8vw,96px) 0}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-weight:600;font-size:clamp(14px,1.5vw,16px);
+    padding:clamp(12px,1.6vw,16px) clamp(22px,3vw,32px);
+    border-radius:999px;border:none;cursor:pointer;text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    font-family:inherit;
+  }
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  .btn-primary{background:var(--gold);color:var(--navy-900);box-shadow:0 6px 20px rgba(184,153,90,.32)}
+  .btn-primary:hover{background:var(--gold-bright);box-shadow:0 10px 28px rgba(184,153,90,.42)}
+  .btn-secondary{background:transparent;color:var(--cool-white);border:1.5px solid var(--blue-glow)}
+  .btn-secondary:hover{background:rgba(77,168,218,.12)}
+  .btn-ghost{background:transparent;color:var(--navy-600);border:1.5px solid var(--border)}
+  .btn-ghost:hover{border-color:var(--navy-600);color:var(--navy-900)}
+
+  /* ─── NAV ─── */
+  nav.top{
+    position:sticky;top:0;z-index:100;
+    background:rgba(10,22,40,.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(77,168,218,.18);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;color:var(--cool-white);font-weight:700;font-size:clamp(16px,2vw,18px);letter-spacing:.5px}
+  .logo-mark{
+    width:32px;height:32px;border-radius:8px;
+    background:linear-gradient(135deg,var(--blue-glow),var(--navy-600));
+    display:grid;place-items:center;color:var(--navy-900);font-weight:900;font-size:15px;
+    box-shadow:0 4px 12px rgba(77,168,218,.35);
+  }
+  .logo-mark::after{content:"UI";font-family:var(--font-serif)}
+  .nav-links{display:flex;align-items:center;gap:clamp(16px,2.4vw,32px)}
+  .nav-links a{color:var(--cool-white);font-size:14px;opacity:.85;font-weight:500}
+  .nav-links a:hover{opacity:1;text-decoration:none}
+  .nav-cta{display:flex;align-items:center;gap:12px}
+  .nav-toggle{display:none;background:none;border:none;color:var(--cool-white);font-size:24px;cursor:pointer;padding:8px}
+
+  /* ─── HERO ─── */
+  .hero{
+    background:
+      radial-gradient(ellipse at 20% 0%,rgba(77,168,218,.18),transparent 50%),
+      radial-gradient(ellipse at 80% 100%,rgba(45,122,179,.22),transparent 55%),
+      linear-gradient(180deg,var(--navy-900),var(--navy-800));
+    color:var(--cool-white);
+    padding:clamp(72px,11vw,128px) 0 clamp(56px,8vw,88px);
+    position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;opacity:.04;
+    background-image:linear-gradient(var(--blue-glow) 1px,transparent 1px),linear-gradient(90deg,var(--blue-glow) 1px,transparent 1px);
+    background-size:60px 60px;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center;position:relative}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+    color:var(--gold-bright);margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--gold-bright)}
+  .hero h1{
+    font-family:var(--font-serif);font-weight:900;
+    font-size:clamp(32px,5.4vw,58px);line-height:1.05;
+    margin-bottom:18px;
+    text-shadow:0 0 32px rgba(77,168,218,.25);
+  }
+  .hero h1 .accent{color:var(--blue-glow)}
+  .hero .sub{
+    font-size:clamp(15px,2vw,19px);color:#cfdcec;line-height:1.55;
+    max-width:540px;margin-bottom:28px;
+  }
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px}
+  .hero-meta{font-size:13px;color:#8aa3bd;display:flex;flex-wrap:wrap;gap:18px}
+  .hero-meta span{display:inline-flex;align-items:center;gap:6px}
+  .hero-meta svg{width:14px;height:14px;color:var(--gold-bright)}
+
+  /* Hero product mockup */
+  .hero-mockup{
+    background:var(--navy-700);border-radius:14px;
+    border:1px solid rgba(77,168,218,.22);
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+    overflow:hidden;position:relative;
+  }
+  .mockup-bar{
+    display:flex;align-items:center;gap:8px;padding:10px 14px;
+    background:var(--navy-800);border-bottom:1px solid rgba(77,168,218,.15);
+  }
+  .mockup-dot{width:10px;height:10px;border-radius:50%;background:#3a4a66}
+  .mockup-dot:nth-child(1){background:#a04848}
+  .mockup-dot:nth-child(2){background:#b8853a}
+  .mockup-dot:nth-child(3){background:#3a8f6a}
+  .mockup-title{margin-left:10px;font-size:11px;color:#8aa3bd;font-family:var(--font-sans)}
+  .mockup-body{display:grid;grid-template-columns:140px 1fr 120px;min-height:280px;font-size:10px}
+  .mockup-side{padding:10px;background:var(--navy-800);border-right:1px solid rgba(77,168,218,.12);color:#9bb4cc}
+  .mockup-side h5{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#6a8aaa;margin-bottom:8px}
+  .mockup-layer{padding:5px 8px;border-radius:4px;margin-bottom:3px;color:#9bb4cc}
+  .mockup-layer.active{background:rgba(77,168,218,.18);color:var(--cool-white)}
+  .mockup-canvas{
+    background:#fbfcfe;padding:14px;position:relative;
+    background-image:linear-gradient(#eef3fa 1px,transparent 1px),linear-gradient(90deg,#eef3fa 1px,transparent 1px);
+    background-size:14px 14px;
+  }
+  .mock-frame{position:absolute;border:1.5px solid var(--blue-mid);border-radius:6px;background:#fff;box-shadow:var(--shadow-sm)}
+  .mock-frame.header{left:14px;right:14px;top:14px;height:34px;display:flex;align-items:center;padding:0 12px}
+  .mock-frame.header .logo-dot{width:14px;height:14px;border-radius:4px;background:var(--gold);margin-right:8px}
+  .mock-frame.header .ln{width:60px;height:6px;background:#dde6f0;border-radius:3px}
+  .mock-frame.hero{left:14px;right:14px;top:60px;height:80px;background:linear-gradient(135deg,#1a4a7a,#2d7ab3);border-radius:8px}
+  .mock-frame.card{left:14px;width:46%;top:154px;height:64px}
+  .mock-frame.card2{right:14px;width:46%;top:154px;height:64px}
+  .mock-frame.cta{left:14px;width:46%;top:226px;height:22px;background:var(--gold);border-color:var(--gold)}
+  .mock-frame.card .ln,.mock-frame.card2 .ln{margin:8px;height:5px;background:#dde6f0;border-radius:3px;width:70%}
+  .mock-frame.card .ln.s,.mock-frame.card2 .ln.s{width:50%;background:#e8dab0}
+  .mock-handoff{padding:10px;background:var(--navy-800);border-left:1px solid rgba(77,168,218,.12);color:#9bb4cc}
+  .mock-handoff h5{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#6a8aaa;margin-bottom:8px}
+  .mock-token{display:flex;align-items:center;gap:6px;margin-bottom:6px;font-family:monospace;font-size:9px}
+  .mock-swatch{width:10px;height:10px;border-radius:2px}
+  .mock-cursor{
+    position:absolute;width:14px;height:14px;
+    border:1.5px solid var(--gold-bright);border-radius:50%;
+    pointer-events:none;
+    box-shadow:0 0 12px rgba(201,168,90,.6);
+    animation:cursorMove 6s ease-in-out infinite;
+  }
+  @keyframes cursorMove{
+    0%,100%{left:20%;top:40%}
+    25%{left:65%;top:35%}
+    50%{left:70%;top:75%}
+    75%{left:25%;top:70%}
+  }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip{
+    background:var(--navy-800);color:var(--cool-white);
+    padding:clamp(28px,4vw,40px) 0;
+    border-bottom:1px solid rgba(77,168,218,.15);
+  }
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,3vw,32px);text-align:center}
+  .stat .num{
+    font-family:var(--font-serif);font-weight:900;
+    font-size:clamp(24px,3.6vw,38px);color:var(--blue-glow);line-height:1;
+  }
+  .stat .lbl{
+    margin-top:8px;font-size:clamp(10px,1.2vw,12px);
+    color:#9bb4cc;text-transform:uppercase;letter-spacing:2px;
+  }
+
+  /* ─── GENERIC SECTION ─── */
+  .sec-head{text-align:center;max-width:680px;margin:0 auto clamp(36px,5vw,56px)}
+  .sec-kicker{
+    font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+    color:var(--gold);margin-bottom:10px;
+  }
+  .sec-title{
+    font-family:var(--font-serif);font-weight:700;
+    font-size:clamp(26px,3.8vw,38px);line-height:1.15;color:var(--navy-900);margin-bottom:14px;
+  }
+  .sec-sub{font-size:clamp(15px,1.8vw,17px);color:var(--text-muted);line-height:1.6}
+
+  /* ─── PILLARS ─── */
+  .pillars{background:#fff}
+  .pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,28px)}
+  .pillar{
+    background:var(--card-bg);border-radius:var(--radius-lg);
+    padding:clamp(24px,3vw,36px);border:1px solid var(--border);
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .pillar:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .pillar-icon{
+    width:52px;height:52px;border-radius:12px;
+    background:linear-gradient(135deg,var(--navy-600),var(--blue-mid));
+    display:grid;place-items:center;color:var(--cool-white);
+    margin-bottom:18px;
+  }
+  .pillar-icon svg{width:26px;height:26px}
+  .pillar h3{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);color:var(--navy-900);margin-bottom:10px}
+  .pillar p{color:var(--text-muted);font-size:14px;line-height:1.65}
+  .pillar .claim{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--border);
+    font-style:italic;color:var(--navy-600);font-size:13px;
+  }
+
+  /* ─── PROBLEM ─── */
+  .problem{background:var(--section-bg)}
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,56px);align-items:center}
+  .problem h2{font-family:var(--font-serif);font-size:clamp(24px,3.4vw,34px);color:var(--navy-900);margin-bottom:18px;line-height:1.2}
+  .problem p{color:var(--text-muted);margin-bottom:14px;font-size:15px}
+  .problem .pain-list{list-style:none;margin-top:18px}
+  .problem .pain-list li{
+    display:flex;align-items:flex-start;gap:12px;
+    padding:14px 16px;background:#fff;border-radius:10px;margin-bottom:10px;
+    border-left:3px solid var(--error);font-size:14px;
+  }
+  .problem .pain-list svg{width:18px;height:18px;color:var(--error);flex-shrink:0;margin-top:2px}
+  .cost-card{
+    background:var(--navy-900);color:var(--cool-white);
+    border-radius:var(--radius-lg);padding:clamp(28px,3.4vw,40px);
+    box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
+  }
+  .cost-card::before{content:"";position:absolute;top:0;left:0;width:6px;height:100%;background:var(--gold)}
+  .cost-card h3{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);margin-bottom:18px;color:var(--cool-white)}
+  .cost-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:14px}
+  .cost-row:last-child{border-bottom:none}
+  .cost-row .v{font-family:monospace;font-weight:700}
+  .cost-row.bad .v{color:var(--error)}
+  .cost-row.good .v{color:var(--success)}
+  .cost-row.gold .v{color:var(--gold-bright)}
+  .cost-total{
+    margin-top:18px;padding-top:18px;border-top:2px solid var(--gold);
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .cost-total .lbl{font-size:13px;color:#9bb4cc;text-transform:uppercase;letter-spacing:1px}
+  .cost-total .v{font-family:var(--font-serif);font-size:clamp(22px,3vw,30px);font-weight:900;color:var(--gold-bright)}
+
+  /* ─── FEATURES ─── */
+  .features{background:#fff}
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,24px)}
+  .feature{
+    padding:clamp(22px,2.6vw,30px);border:1px solid var(--border);border-radius:var(--radius);
+    background:var(--card-bg);transition:all .2s ease;
+  }
+  .feature:hover{border-color:var(--blue-mid);box-shadow:var(--shadow-md)}
+  .feature-ic{
+    width:44px;height:44px;border-radius:10px;background:var(--section-bg);
+    display:grid;place-items:center;color:var(--blue-mid);margin-bottom:14px;
+  }
+  .feature-ic svg{width:22px;height:22px}
+  .feature h4{font-size:clamp(15px,1.7vw,17px);color:var(--navy-900);margin-bottom:8px;font-weight:700}
+  .feature p{color:var(--text-muted);font-size:13.5px;line-height:1.6}
+
+  /* ─── PRICING ─── */
+  .pricing{background:linear-gradient(180deg,var(--section-bg),#fff)}
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,24px);align-items:stretch}
+  .price-card{
+    background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+    padding:clamp(28px,3vw,40px) clamp(24px,2.6vw,34px);
+    display:flex;flex-direction:column;position:relative;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .price-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .price-card.featured{
+    border:2px solid var(--gold);
+    box-shadow:0 12px 36px rgba(184,153,90,.20);
+    transform:scale(1.02);
+  }
+  .price-card.featured:hover{transform:scale(1.02) translateY(-4px)}
+  .price-badge{
+    position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+    background:var(--gold);color:var(--navy-900);
+    padding:5px 16px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:1px;
+  }
+  .price-tier{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--blue-mid);font-weight:700;margin-bottom:8px}
+  .price-name{font-family:var(--font-serif);font-size:clamp(22px,2.6vw,28px);color:var(--navy-900);margin-bottom:14px;font-weight:700}
+  .price-amount{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+  .price-amount .cur{font-size:18px;color:var(--text-muted);font-weight:600}
+  .price-amount .num{font-family:var(--font-serif);font-size:clamp(36px,5vw,52px);font-weight:900;color:var(--navy-900);line-height:1}
+  .price-once{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:20px}
+  .price-seats{font-size:13px;color:var(--text-muted);margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+  .price-feats{list-style:none;flex:1;margin-bottom:24px}
+  .price-feats li{
+    display:flex;align-items:flex-start;gap:10px;padding:7px 0;
+    font-size:14px;color:var(--text-dark);
+  }
+  .price-feats svg{width:16px;height:16px;color:var(--success);flex-shrink:0;margin-top:3px}
+  .price-feats li.muted{color:var(--text-muted)}
+  .price-feats li.muted svg{color:var(--border)}
+  .price-card .btn{width:100%}
+
+  /* ─── COMPARISON ─── */
+  .comparison{background:#fff}
+  .compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:var(--radius)}
+  .compare-table{width:100%;border-collapse:collapse;min-width:680px}
+  .compare-table th,.compare-table td{padding:14px 16px;text-align:left;font-size:14px;border-bottom:1px solid var(--border)}
+  .compare-table thead th{
+    background:var(--navy-900);color:var(--cool-white);font-weight:700;
+    font-size:13px;text-transform:uppercase;letter-spacing:1px;
+  }
+  .compare-table thead th.us{background:linear-gradient(135deg,var(--navy-600),var(--blue-mid));color:#fff}
+  .compare-table tbody tr:nth-child(even){background:var(--card-bg)}
+  .compare-table tbody td:first-child{font-weight:600;color:var(--navy-900)}
+  .compare-table .yes{color:var(--success);font-weight:700}
+  .compare-table .no{color:var(--error)}
+  .compare-table .partial{color:var(--warning)}
+  .compare-table .us-cell{background:rgba(45,122,179,.06);font-weight:600}
+  .compare-note{font-size:13px;color:var(--text-muted);margin-top:14px;text-align:center;font-style:italic}
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials{background:var(--section-bg)}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2vw,24px)}
+  .testi{
+    background:#fff;border-radius:var(--radius-lg);padding:clamp(24px,3vw,32px);
+    border:1px solid var(--border);box-shadow:var(--shadow-sm);
+    display:flex;flex-direction:column;
+  }
+  .testi-stars{color:var(--gold-bright);font-size:16px;margin-bottom:14px;letter-spacing:2px}
+  .testi-quote{font-size:14.5px;color:var(--text-dark);line-height:1.65;flex:1;font-style:italic;margin-bottom:18px}
+  .testi-author{display:flex;align-items:center;gap:12px}
+  .testi-av{
+    width:42px;height:42px;border-radius:50%;
+    background:linear-gradient(135deg,var(--navy-600),var(--blue-mid));
+    display:grid;place-items:center;color:#fff;font-weight:700;font-size:14px;
+  }
+  .testi-name{font-size:14px;font-weight:700;color:var(--navy-900)}
+  .testi-role{font-size:12px;color:var(--text-muted)}
+  .testi-disclaimer{font-size:11px;color:var(--text-muted);margin-top:14px;font-style:italic;opacity:.75}
+
+  /* ─── FAQ ─── */
+  .faq{background:#fff}
+  .faq-list{max-width:760px;margin:0 auto}
+  .faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;background:var(--card-bg)}
+  .faq-q{
+    width:100%;background:none;border:none;padding:18px 22px;
+    font-size:15px;font-weight:600;color:var(--navy-900);
+    text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;
+    font-family:inherit;
+  }
+  .faq-q:hover{color:var(--blue-mid)}
+  .faq-q .ic{
+    flex-shrink:0;width:22px;height:22px;color:var(--gold);
+    transition:transform .2s ease;font-size:18px;font-weight:700;
+  }
+  .faq-item.open .faq-q .ic{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 22px}
+  .faq-item.open .faq-a{max-height:340px;padding:0 22px 18px}
+  .faq-a p{font-size:14px;color:var(--text-muted);line-height:1.65}
+
+  /* ─── PLAYBOOK (How to sell this) ─── */
+  .playbook{background:var(--navy-900);color:var(--cool-white)}
+  .playbook .sec-kicker{color:var(--gold-bright)}
+  .playbook .sec-title{color:var(--cool-white)}
+  .playbook .sec-sub{color:#9bb4cc}
+  .pb-toggle-wrap{text-align:center;margin-bottom:24px}
+  .pb-toggle{
+    background:rgba(77,168,218,.12);color:var(--cool-white);
+    border:1px solid var(--blue-glow);
+    padding:12px 26px;border-radius:999px;cursor:pointer;
+    font-size:14px;font-weight:600;font-family:inherit;
+    display:inline-flex;align-items:center;gap:10px;
+    transition:background .15s ease;
+  }
+  .pb-toggle:hover{background:rgba(77,168,218,.22)}
+  .pb-toggle .ic{transition:transform .25s ease;font-size:16px}
+  .playbook.open .pb-toggle .ic{transform:rotate(180deg)}
+  .pb-content{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .playbook.open .pb-content{max-height:3000px}
+  .pb-inner{padding-top:32px}
+  .pb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(18px,2.4vw,28px)}
+  .pb-card{
+    background:rgba(255,255,255,.04);border:1px solid rgba(77,168,218,.18);
+    border-radius:var(--radius);padding:clamp(22px,2.6vw,30px);
+  }
+  .pb-card h4{
+    font-family:var(--font-serif);font-size:clamp(17px,2vw,21px);
+    color:var(--cool-white);margin-bottom:12px;
+  }
+  .pb-card .lbl{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-bright);text-transform:uppercase;margin-bottom:8px}
+  .pb-card p,.pb-card li{font-size:13.5px;color:#cfdcec;line-height:1.65}
+  .pb-card ul{list-style:none;margin-top:8px}
+  .pb-card ul li{padding:5px 0 5px 18px;position:relative}
+  .pb-card ul li::before{content:"\203A";position:absolute;left:0;color:var(--gold-bright);font-weight:700}
+  .pb-card ol{padding-left:18px;margin-top:8px}
+  .pb-card ol li{padding:4px 0}
+  .pb-mandate{
+    background:linear-gradient(135deg,rgba(184,153,90,.12),rgba(45,122,179,.12));
+    border-left:3px solid var(--gold);padding:18px 22px;border-radius:8px;
+    font-style:italic;font-size:14px;color:var(--cool-white);margin-bottom:14px;
+  }
+  .pb-link{
+    display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+    color:var(--gold-bright);font-size:13px;font-weight:600;
+  }
+  .pb-link svg{width:14px;height:14px}
+
+  /* ─── TRIAL CTA ─── */
+  .trial{background:linear-gradient(135deg,var(--navy-800),var(--navy-600));color:var(--cool-white);position:relative;overflow:hidden}
+  .trial::before{content:"";position:absolute;top:-50%;right:-20%;width:60%;height:200%;background:radial-gradient(circle,rgba(77,168,218,.15),transparent 60%)}
+  .trial-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,56px);align-items:center;position:relative}
+  .trial h2{font-family:var(--font-serif);font-size:clamp(26px,3.6vw,38px);line-height:1.15;margin-bottom:14px}
+  .trial p{color:#cfdcec;font-size:15px;margin-bottom:18px}
+  .trial-bullets{list-style:none;margin-bottom:24px}
+  .trial-bullets li{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px;color:var(--cool-white)}
+  .trial-bullets svg{width:18px;height:18px;color:var(--gold-bright)}
+  /* ─── TRIAL DOWNLOAD PANEL ─── */
+  .trial-download{
+    background:#fff;color:var(--text-dark);
+    padding:clamp(24px,3vw,32px);border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);
+  }
+  .trial-download h3{font-family:var(--font-serif);font-size:clamp(18px,2vw,22px);color:var(--navy-900);margin-bottom:6px}
+  .trial-download .sub{font-size:13px;color:var(--text-muted);margin-bottom:20px}
+  .dl-platforms{display:flex;flex-direction:column;gap:10px}
+  .dl-btn{
+    display:flex;align-items:center;gap:14px;
+    padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;
+    background:var(--card-bg);color:var(--text-dark);text-decoration:none;
+    transition:border-color .15s ease,background .15s ease,transform .15s ease;
+  }
+  .dl-btn:hover{border-color:var(--gold);background:#fff;transform:translateY(-1px);text-decoration:none}
+  .dl-arrow{width:22px;height:22px;color:var(--navy-600);flex-shrink:0}
+  .dl-txt{display:flex;flex-direction:column;line-height:1.25}
+  .dl-txt b{font-size:15px;color:var(--navy-900);font-weight:700}
+  .dl-txt small{font-size:12px;color:var(--text-muted)}
+  .dl-note{
+    display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:12px 14px;
+    background:rgba(184,153,90,.08);border:1px solid rgba(184,153,90,.25);border-radius:10px;
+    font-size:12.5px;color:var(--text-dark);line-height:1.5;
+  }
+  .dl-note svg{width:18px;height:18px;color:var(--gold);flex-shrink:0;margin-top:1px}
+
+  /* ─── LICENSE & SUPPORT POLICY ─── */
+  .policy{background:var(--section-bg)}
+  .policy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,2.4vw,24px);margin-top:8px}
+  .policy-card{
+    background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+    padding:clamp(20px,2.6vw,28px);position:relative;
+    box-shadow:var(--shadow-sm);transition:box-shadow .2s ease,transform .2s ease;
+  }
+  .policy-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+  .policy-num{
+    display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--gold-bright));
+    color:var(--navy-900);font-weight:800;font-size:15px;font-family:var(--font-serif);
+    margin-bottom:12px;box-shadow:0 4px 10px rgba(184,153,90,.28);
+  }
+  .policy-card h4{font-size:clamp(15px,1.6vw,17px);color:var(--navy-900);margin-bottom:8px;line-height:1.3}
+  .policy-card p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+  .policy-card .tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-bright)}
+  .policy-cutoff{
+    grid-column:1/-1;margin-top:4px;
+    background:linear-gradient(135deg,var(--navy-800),var(--navy-700));
+    color:var(--cool-white);border:none;border-left:4px solid var(--gold-bright);
+    padding:clamp(24px,3vw,34px);border-radius:var(--radius);
+  }
+  .policy-cutoff .policy-num{background:var(--gold-bright);color:var(--navy-900)}
+  .policy-cutoff h4{color:var(--cool-white);font-size:clamp(17px,2vw,21px);margin-bottom:10px}
+  .policy-cutoff p{color:#cfdcec;font-size:14.5px;line-height:1.65}
+  .policy-cutoff .tag{color:var(--gold-bright)}
+  @media(max-width:680px){ .policy-grid{grid-template-columns:1fr} }
+
+  /* ─── DISCOUNTS & DIRECT PURCHASE ─── */
+  .discount{background:var(--section-bg)}
+  .contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,24px);max-width:780px;margin:0 auto}
+  .contact-card{
+    display:flex;flex-direction:column;gap:8px;
+    padding:clamp(22px,2.8vw,30px);border-radius:var(--radius-lg);
+    border:1.5px solid var(--border);background:#fff;color:var(--text-dark);
+    text-decoration:none;box-shadow:var(--shadow-sm);
+    transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease;
+  }
+  .contact-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--shadow-md);text-decoration:none}
+  .contact-ic{
+    width:48px;height:48px;border-radius:12px;display:grid;place-items:center;margin-bottom:6px;
+    background:linear-gradient(135deg,var(--navy-600),var(--navy-800));color:var(--cool-white);
+  }
+  .contact-ic svg{width:24px;height:24px}
+  .contact-card.wa .contact-ic{background:linear-gradient(135deg,#25d366,#128c4a)}
+  .contact-card h4{font-family:var(--font-serif);font-size:clamp(16px,1.8vw,19px);color:var(--navy-900)}
+  .contact-card .addr{font-size:14px;color:var(--navy-700);font-weight:600;word-break:break-all}
+  .contact-card .sub{font-size:13px;color:var(--text-muted);line-height:1.55}
+  .contact-card .pill{
+    display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:6px;
+    font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-bright);
+  }
+  .proc-steps{
+    max-width:880px;margin:clamp(28px,3.5vw,40px) auto 0;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.6vw,18px);
+  }
+  .proc-step{
+    text-align:center;padding:clamp(16px,2vw,22px) 12px;
+    background:#fff;border-radius:var(--radius);border:1px solid var(--border);
+  }
+  .proc-step .n{
+    display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;
+    background:var(--navy-700);color:var(--gold-bright);font-weight:800;font-size:14px;
+    font-family:var(--font-serif);margin-bottom:10px;
+  }
+  .proc-step h5{font-size:13.5px;color:var(--navy-900);margin-bottom:6px}
+  .proc-step p{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+  .discount-note{
+    max-width:880px;margin:clamp(22px,3vw,30px) auto 0;text-align:center;
+    font-size:13px;color:var(--text-muted);font-style:italic;line-height:1.65;
+  }
+  .policy-note{
+    margin-top:clamp(20px,2.6vw,28px);background:#fff;border:1px solid var(--border);
+    border-radius:var(--radius);padding:clamp(18px,2.4vw,26px);
+    font-size:14px;color:var(--text-dark);line-height:1.7;
+  }
+  .policy-note b{color:var(--navy-900)}
+  .policy-note a{color:var(--gold-bright);font-weight:600}
+  .foot-bottom a{color:var(--gold-bright);font-weight:600;text-decoration:none}
+  .foot-bottom a:hover{text-decoration:underline}
+  @media(max-width:680px){
+    .contact-cards{grid-template-columns:1fr}
+    .proc-steps{grid-template-columns:1fr 1fr}
+  }
+
+  /* ─── FOOTER ─── */
+  footer{background:var(--navy-900);color:#9bb4cc;padding:clamp(48px,6vw,72px) 0 28px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:clamp(28px,4vw,48px);margin-bottom:36px}
+  .foot-brand .logo{margin-bottom:14px}
+  .foot-brand p{font-size:13px;color:#7a9bb8;line-height:1.6;margin-bottom:14px}
+  .foot-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 12px;border-radius:999px;font-size:11px;font-weight:600;
+    background:rgba(184,153,90,.12);color:var(--gold-bright);border:1px solid rgba(184,153,90,.3);
+    letter-spacing:1px;text-transform:uppercase;
+  }
+  .foot-col h5{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--cool-white);margin-bottom:14px;font-weight:700}
+  .foot-col ul{list-style:none}
+  .foot-col li{margin-bottom:8px}
+  .foot-col a{color:#7a9bb8;font-size:13px}
+  .foot-col a:hover{color:var(--cool-white);text-decoration:none}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.08);padding-top:24px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:12px;color:#6a8aaa;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:960px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-mockup{max-width:560px;margin:0 auto;width:100%}
+    .problem-grid{grid-template-columns:1fr;gap:32px}
+    .trial-grid{grid-template-columns:1fr;gap:32px}
+    .pillars-grid,.features-grid,.pricing-grid,.testi-grid,.pb-grid{grid-template-columns:1fr 1fr}
+    .stats-grid{grid-template-columns:1fr 1fr;gap:24px}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .foot-brand{grid-column:1/-1}
+  }
+  @media(max-width:680px){
+    .nav-links{
+      position:fixed;top:64px;left:0;right:0;
+      background:var(--navy-900);flex-direction:column;
+      padding:24px;gap:18px;border-bottom:1px solid rgba(77,168,218,.18);
+      transform:translateY(-150%);transition:transform .25s ease;
+      align-items:flex-start;
+    }
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{font-size:15px}
+    .nav-toggle{display:block}
+    .nav-cta .btn-secondary{display:none}
+    .pillars-grid,.features-grid,.pricing-grid,.testi-grid,.pb-grid,.stats-grid,.foot-grid{grid-template-columns:1fr}
+    .price-card.featured{transform:none}
+    .price-card.featured:hover{transform:translateY(-4px)}
+    .mockup-body{grid-template-columns:80px 1fr 80px;min-height:240px}
+    .hero-cta .btn{flex:1;min-width:0}
+  }
+  @media(max-width:380px){
+    .hero h1{font-size:28px}
+    .mockup-body{grid-template-columns:1fr;min-height:auto}
+    .mockup-side,.mock-handoff{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════ NAV ════════════ -->
+<nav class="top">
+  <div class="container nav-inner">
+    <a href="#" class="logo"><span class="logo-mark"></span><span>UI Max Pro</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#pillars">Why Pro</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#compare">Compare</a>
+      <a href="#faq">FAQ</a>
+      <a href="#policy">License</a>
+      <a href="#trial" class="btn btn-primary" style="padding:9px 20px;font-size:13px">Start trial</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- ════════════ HERO ════════════ -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Perpetual License &middot; No Subscription</div>
+      <h1>The last design license <span class="accent">your team</span> will ever buy.</h1>
+      <p class="sub">UI Max Pro is a desktop-and-web UI design tool you own forever. One-time price. No per-seat-per-month tax. Ship pixel-perfect UI four times faster &mdash; from wireframe to handoff in one workspace.</p>
+      <div class="hero-cta">
+        <a href="#trial" class="btn btn-primary">Start 14-day trial &mdash; free</a>
+        <a href="#features" class="btn btn-secondary">&#9658; Watch 2-min demo</a>
+      </div>
+      <div class="hero-meta">
+        <span>&#10003; No credit card to start</span>
+        <span>&#10003; macOS / Windows / Linux</span>
+        <span>&#10003; Runs offline</span>
+      </div>
+    </div>
+    <div class="hero-mockup" aria-hidden="true">
+      <div class="mockup-bar">
+        <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+        <span class="mockup-title">checkout-flow.ui &mdash; UI Max Pro</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-side">
+          <h5>Layers</h5>
+          <div class="mockup-layer active">Frame: Checkout</div>
+          <div class="mockup-layer">&nbsp;&nbsp;Header</div>
+          <div class="mockup-layer">&nbsp;&nbsp;Hero card</div>
+          <div class="mockup-layer active">&nbsp;&nbsp;&nbsp;&nbsp;CTA button</div>
+          <div class="mockup-layer">&nbsp;&nbsp;Summary</div>
+          <h5 style="margin-top:14px">Components</h5>
+          <div class="mockup-layer">Button / Primary</div>
+          <div class="mockup-layer">Input / Email</div>
+        </div>
+        <div class="mockup-canvas">
+          <div class="mock-frame header"><span class="logo-dot"></span><span class="ln"></span></div>
+          <div class="mock-frame hero"></div>
+          <div class="mock-frame card"><span class="ln"></span><span class="ln s"></span></div>
+          <div class="mock-frame card2"><span class="ln"></span><span class="ln s"></span></div>
+          <div class="mock-frame cta"></div>
+          <div class="mock-cursor"></div>
+        </div>
+        <div class="mock-handoff">
+          <h5>Tokens</h5>
+          <div class="mock-token"><span class="mock-swatch" style="background:#1a4a7a"></span>navy/600</div>
+          <div class="mock-token"><span class="mock-swatch" style="background:#b8995a"></span>gold/500</div>
+          <div class="mock-token"><span class="mock-swatch" style="background:#3a8f6a"></span>success</div>
+          <h5 style="margin-top:14px">Handoff</h5>
+          <div class="mock-token">spacing: 8/16/24</div>
+          <div class="mock-token">radius: 8px</div>
+          <div class="mock-token">font: Inter 14</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════ STATS STRIP ════════════ -->
+<div class="stats-strip">
+  <div class="container stats-grid">
+    <div class="stat"><div class="num" data-count="73" data-suffix="%">73%</div><div class="lbl">Faster Handoff</div></div>
+    <div class="stat"><div class="num" data-count="18" data-suffix=" mo">18 mo</div><div class="lbl">Break-even vs Figma</div></div>
+    <div class="stat"><div class="num" data-count="12400" data-suffix="+">12,400+</div><div class="lbl">Designers Onboard</div></div>
+    <div class="stat"><div class="num" data-count="4.9" data-suffix="/5">4.9/5</div><div class="lbl">User Rating</div></div>
+  </div>
+</div>
+
+<!-- ════════════ PILLARS ════════════ -->
+<section class="pillars" id="pillars">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Why UI Max Pro</div>
+      <h2 class="sec-title">Three claims we&rsquo;re willing to defend publicly.</h2>
+      <p class="sec-sub">Every feature, every demo, every line of copy ladders back to one of these. That&rsquo;s what makes the product feel inevitable rather than scattered.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7"/><path d="M3 7l9-4 9 4"/><circle cx="12" cy="13" r="2"/></svg>
+        </div>
+        <h3>Ownership</h3>
+        <p>You buy it once. You own it forever. No per-seat-per-month tax compounding for as long as your team exists. Twelve months of updates are included; an optional annual upgrade plan extends them.</p>
+        <div class="claim">&ldquo;The last design license your team will ever buy.&rdquo;</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <h3>Velocity</h3>
+        <p>Wireframe, prototype, manage tokens, and hand off to engineering &mdash; all in one workspace. Median 73% reduction in design-to-handoff cycle across our beta cohort of 42 teams.</p>
+        <div class="claim">&ldquo;Ship pixel-perfect UI four times faster.&rdquo;</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Sovereignty</h3>
+        <p>Your design system, your files, your machine. Offline-first local files; runs on air-gapped networks; no mandatory cloud account. No vendor can ever turn your team off.</p>
+        <div class="claim">&ldquo;Your design system, your files, your machine.&rdquo;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PROBLEM ════════════ -->
+<section class="problem">
+  <div class="container problem-grid">
+    <div>
+      <div class="sec-kicker">The Subscription Trap</div>
+      <h2>You&rsquo;re not paying for software. You&rsquo;re paying rent on your own work.</h2>
+      <p>Every month, per seat, forever. The bill grows when you hire, never shrinks when you ship. And the moment you stop paying, your team loses access to the files they built.</p>
+      <ul class="pain-list">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span><b>Compounding tax.</b> A 5-seat team on Figma Professional pays ~$4,050 over three years &mdash; for software that never becomes theirs.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span><b>Cloud lock-in.</b> Stop paying, lose access. Your design system, your history, your comments &mdash; all gone the day the subscription lapses.</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span><b>Tool fragmentation.</b> Design in one tool, prototype in another, hand off in a third. Each adds a subscription and a friction tax.</span></li>
+      </ul>
+    </div>
+    <div class="cost-card">
+      <h3>Three-year cost &mdash; 5-seat team</h3>
+      <div class="cost-row bad"><span>Figma Professional</span><span class="v">$4,050</span></div>
+      <div class="cost-row bad"><span>Sketch + Sync subscription</span><span class="v">$1,290</span></div>
+      <div class="cost-row bad"><span>Zeplin handoff (5 seats)</span><span class="v">$1,080</span></div>
+      <div class="cost-row good"><span>UI Max Pro Studio</span><span class="v">$499</span></div>
+      <div class="cost-row good"><span>Updates after yr 1 (optional)</span><span class="v">$0</span></div>
+      <div class="cost-total">
+        <span class="lbl">You save</span>
+        <span class="v">$5,921</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FEATURES ════════════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">What&rsquo;s In The Box</div>
+      <h2 class="sec-title">One workspace. Six capabilities. Zero subscriptions.</h2>
+      <p class="sec-sub">Every feature maps to a specific buyer pain. Same value stack across all three tiers &mdash; what changes is seat count and support level.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <h4>Vector UI design + auto-layout</h4>
+        <p>Pixel-perfect canvas with constraint-based auto-layout. Rebuilds gracefully when specs change. Replaces the Figma / Sketch canvas.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <h4>Interactive prototyping</h4>
+        <p>Wire interactions to component state &mdash; no code, no ProtoPie. Designer-developer ping-pong on interaction states disappears.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12c2-5 6-8 10-8s8 3 10 8c-2 5-6 8-10 8s-8-3-10-8z"/></svg></div>
+        <h4>Design-token management</h4>
+        <p>Tokens defined once, exported as JSON, CSS variables, or Tailwind config. Kills token drift between design system and codebase.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h4>Developer handoff</h4>
+        <p>Specs, assets, tokens &mdash; exportable in one link. Engineers get exact spacing, color, and component state. Replaces Zeplin.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="9" y1="20" x2="9" y2="9"/></svg></div>
+        <h4>Component library + versioning</h4>
+        <p>Shared libraries with semantic versioning. Update a component once; every file that consumes it stays in sync. No broken links.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg></div>
+        <h4>Offline-first local files</h4>
+        <p>Files live on your machine. Work on planes, on air-gapped networks, on regulated infrastructure. Optional cloud sync when you want it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ PRICING ════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Pricing &mdash; Perpetual, One-Time</div>
+      <h2 class="sec-title">Buy it once. Own it forever.</h2>
+      <p class="sec-sub">All three tiers are perpetual licenses &mdash; no recurring fee, no per-seat-per-month tax. Twelve months of updates included. Optional annual upgrade plan extends updates beyond that.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Solo</div>
+        <div class="price-name">For individuals</div>
+        <div class="price-amount"><span class="cur">$</span><span class="num">249</span></div>
+        <div class="price-once">One-time &middot; perpetual license</div>
+        <div class="price-seats">1 designer &middot; 2 devices</div>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Full feature set</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>12 months of updates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Offline-first files</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Community support</li>
+          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Shared component library</li>
+          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+        </ul>
+        <a href="#trial" class="btn btn-ghost">Start Solo trial</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="price-badge">Most popular</span>
+        <div class="price-tier">Studio</div>
+        <div class="price-name">For small teams</div>
+        <div class="price-amount"><span class="cur">$</span><span class="num">499</span></div>
+        <div class="price-once">One-time &middot; perpetual license</div>
+        <div class="price-seats">Up to 5 seats &middot; 3 devices each</div>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Everything in Solo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Shared component library</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Team file sync (optional cloud)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Design-token team workflow</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>12 months of updates</li>
+          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+        </ul>
+        <a href="#trial" class="btn btn-primary">Start Studio trial</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier">Agency</div>
+        <div class="price-name">For agencies &amp; enterprise</div>
+        <div class="price-amount"><span class="cur">$</span><span class="num">899</span></div>
+        <div class="price-once">One-time &middot; perpetual license</div>
+        <div class="price-seats">Up to 15 seats &middot; 3 devices each</div>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Everything in Studio</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Up to 15 seats included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Priority support (24h SLA)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Migration concierge</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>SSO on roadmap</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>12 months of updates</li>
+        </ul>
+        <a href="#trial" class="btn btn-ghost">Talk to sales</a>
+      </div>
+    </div>
+    <p class="compare-note" style="text-align:center;margin-top:24px;font-size:13px;color:var(--text-muted)">All prices in USD. Tax and regional surcharge added at checkout. 14-day free trial &mdash; no credit card. <a href="#discounts" style="color:var(--gold-bright);font-weight:600;font-style:normal">Need a discount? Contact the seller directly &rsaquo;</a></p>
+  </div>
+</section>
+
+<!-- ════════════ DISCOUNTS & DIRECT PURCHASE ════════════ -->
+<section class="discount" id="discounts">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Discounts &amp; Direct Purchase</div>
+      <h2 class="sec-title">Want a discount? Talk to the seller directly.</h2>
+      <p class="sec-sub">Standard tiers above are self-checkout at full price &mdash; instant license key. For any discount or custom quote, contact the seller directly. You get a fixed quote, you pay the seller, and the seller issues your license key and grants the rights to use UI Max Pro. No middleman, no marketplace fee, no automatic renewal.</p>
+    </div>
+
+    <div class="contact-cards">
+      <a class="contact-card email" href="mailto:vijayaraghavan1960@gmail.com?subject=UI%20Max%20Pro%20discount%20inquiry&body=I%27d%20like%20a%20discount%20quote%20for%20UI%20Max%20Pro.%20Please%20share%20pricing%20for%20my%20team.%0AThanks.">
+        <span class="contact-ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+        </span>
+        <h4>Email the seller</h4>
+        <span class="addr">vijayaraghavan1960@gmail.com</span>
+        <span class="sub">Best for detailed quotes. Tell us the tier, your team size, and the discount reason &mdash; volume, education, startup, or regional. You get a fixed price and payment instructions back.</span>
+        <span class="pill">Quote within 24h &rsaquo;</span>
+      </a>
+
+      <a class="contact-card wa" href="https://wa.me/96899061298?text=I%27d%20like%20a%20discount%20quote%20for%20UI%20Max%20Pro" target="_blank" rel="noopener">
+        <span class="contact-ic">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm0 18.13c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.25-8.23 4.54 0 8.23 3.7 8.23 8.23 0 4.55-3.69 8.22-8.23 8.22zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42-.14 0-.31-.02-.48-.02-.16 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28z"/></svg>
+        </span>
+        <h4>Chat on WhatsApp</h4>
+        <span class="addr">+968 99061298</span>
+        <span class="sub">Fastest for quick questions and same-day quotes. Tap to open a chat with a pre-filled message &mdash; no need to save the number first.</span>
+        <span class="pill">Open chat &rsaquo;</span>
+      </a>
+    </div>
+
+    <div class="proc-steps">
+      <div class="proc-step">
+        <span class="n">1</span>
+        <h5>Contact</h5>
+        <p>Email or WhatsApp with your tier, team size, and discount reason.</p>
+      </div>
+      <div class="proc-step">
+        <span class="n">2</span>
+        <h5>Get a quote</h5>
+        <p>A fixed discounted price and payment method, sent within 24 hours.</p>
+      </div>
+      <div class="proc-step">
+        <span class="n">3</span>
+        <h5>Pay the seller</h5>
+        <p>Pay directly using the method in your quote. The seller accepts payment.</p>
+      </div>
+      <div class="proc-step">
+        <span class="n">4</span>
+        <h5>Receive rights</h5>
+        <p>The seller issues your license key and grants the rights to use UI Max Pro.</p>
+      </div>
+    </div>
+
+    <p class="discount-note">Discounts are entirely at the seller&rsquo;s discretion. Once your license is active, the License &amp; Support Policy applies in full &mdash; including point 7 (no post-sale support or modifications). The seller&rsquo;s involvement is the transaction itself: quote, payment, and rights delivery.</p>
+  </div>
+</section>
+
+<!-- ════════════ COMPARISON ════════════ -->
+<section class="comparison" id="compare">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">How We Compare</div>
+      <h2 class="sec-title">Lead with ownership, not features.</h2>
+      <p class="sec-sub">The position isn&rsquo;t &ldquo;better features&rdquo; &mdash; it&rsquo;s a fundamentally different commercial relationship with the buyer.</p>
+    </div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="us">UI Max Pro</th>
+            <th>Figma</th>
+            <th>Sketch</th>
+            <th>Adobe XD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>License model</td>
+            <td class="us-cell yes">Perpetual, one-time</td>
+            <td class="no">Subscription</td>
+            <td class="partial">Perpetual + sync sub</td>
+            <td class="no">EOL / maintenance</td>
+          </tr>
+          <tr>
+            <td>3-yr cost (5 seats)</td>
+            <td class="us-cell yes">$499</td>
+            <td class="no">~$4,050</td>
+            <td class="no">~$1,290+</td>
+            <td class="no">N/A</td>
+          </tr>
+          <tr>
+            <td>Platforms</td>
+            <td class="us-cell yes">macOS, Windows, Linux</td>
+            <td>Browser only</td>
+            <td class="no">macOS only</td>
+            <td class="partial">macOS, Windows</td>
+          </tr>
+          <tr>
+            <td>Runs offline</td>
+            <td class="us-cell yes">Yes &mdash; native</td>
+            <td class="no">No</td>
+            <td class="yes">Yes</td>
+            <td class="yes">Yes</td>
+          </tr>
+          <tr>
+            <td>Cloud account required</td>
+            <td class="us-cell yes">No</td>
+            <td class="no">Yes</td>
+            <td class="no">For sync</td>
+            <td class="no">Yes</td>
+          </tr>
+          <tr>
+            <td>Air-gapped deployment</td>
+            <td class="us-cell yes">Yes</td>
+            <td class="no">No</td>
+            <td class="no">No</td>
+            <td class="no">No</td>
+          </tr>
+          <tr>
+            <td>Design tokens + export</td>
+            <td class="us-cell yes">Built-in</td>
+            <td class="partial">Via plugins</td>
+            <td class="partial">Via plugins</td>
+            <td class="no">Limited</td>
+          </tr>
+          <tr>
+            <td>Dev handoff</td>
+            <td class="us-cell yes">Built-in</td>
+            <td class="yes">Built-in</td>
+            <td class="no">Via Zeplin</td>
+            <td class="partial">Limited</td>
+          </tr>
+          <tr>
+            <td>File migration</td>
+            <td class="us-cell yes">One-click importer</td>
+            <td class="no">&mdash;</td>
+            <td class="partial">From XD only</td>
+            <td class="no">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="compare-note">Comparison based on publicly available pricing as of Q4 2025. Figures rounded.</p>
+  </div>
+</section>
+
+<!-- ════════════ TESTIMONIALS ════════════ -->
+<section class="testimonials">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">From The Beta Cohort</div>
+      <h2 class="sec-title">Teams that stopped paying rent.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">&ldquo;We killed Figma, Zeplin, and ProtoPie in one week. The break-even math was so obvious our CFO signed the purchase order without a meeting.&rdquo;</p>
+        <div class="testi-author">
+          <div class="testi-av">MK</div>
+          <div>
+            <div class="testi-name">Maya Kowalski</div>
+            <div class="testi-role">Design Lead, Northwind Studio</div>
+          </div>
+        </div>
+        <p class="testi-disclaimer">Illustrative beta-cohort testimonial.</p>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">&ldquo;The offline-first model is the real unlock. We work with regulated clients who can&rsquo;t use cloud tools &mdash; UI Max Pro is the first design tool that fits our security posture.&rdquo;</p>
+        <div class="testi-author">
+          <div class="testi-av">DR</div>
+          <div>
+            <div class="testi-name">Daniel Reyes</div>
+            <div class="testi-role">Principal, Brightpebble Agency</div>
+          </div>
+        </div>
+        <p class="testi-disclaimer">Illustrative beta-cohort testimonial.</p>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testi-quote">&ldquo;Handoff went from a two-day ritual to a single link. Our engineers actually read the specs now &mdash; because the tokens export straight into our codebase.&rdquo;</p>
+        <div class="testi-author">
+          <div class="testi-av">JT</div>
+          <div>
+            <div class="testi-name">Jin Tanaka</div>
+            <div class="testi-role">Eng Manager, Helios Product</div>
+          </div>
+        </div>
+        <p class="testi-disclaimer">Illustrative beta-cohort testimonial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FAQ ════════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Questions &amp; Objections</div>
+      <h2 class="sec-title">The six things buyers actually ask.</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item">
+        <button class="faq-q">Isn&rsquo;t $499 expensive for a one-time purchase?<span class="ic">+</span></button>
+        <div class="faq-a"><p>You&rsquo;re not paying $499 &mdash; you&rsquo;re stopping a $4,050 three-year tax. The 18-month break-even vs Figma Professional is on a 5-seat team; larger teams break even faster. Send us your current subscription and we&rsquo;ll send back the exact calc within 2 hours.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What about real-time multiplayer collaboration?<span class="ic">+</span></button>
+        <div class="faq-a"><p>Multiplayer is the feature subscription tools sell to justify the recurring fee. UI Max Pro solves the underlying problem &mdash; staying in sync &mdash; with offline-first file sync and a version-locked component library. If your team genuinely needs pixel-level cursors, that&rsquo;s a Figma conversation; for ~80% of teams, it isn&rsquo;t.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What happens after the 12-month update window?<span class="ic">+</span></button>
+        <div class="faq-a"><p>You own the version you bought, forever &mdash; it never stops working. An optional annual upgrade plan extends feature updates beyond the first 12 months. The price is locked at purchase; we will never raise it on existing customers.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can we migrate our existing Figma / Sketch / XD files?<span class="ic">+</span></button>
+        <div class="faq-a"><p>Yes &mdash; one-click importer for all three. Median migration time for a 5-seat team is about 4 days. For Studio and Agency tier buyers, we run the first import live on a call with you (migration concierge).</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">We need SSO and a security review.<span class="ic">+</span></button>
+        <div class="faq-a"><p>SSO is on the Agency tier roadmap. For now, the security story is offline-first local files &mdash; you can deploy UI Max Pro on air-gapped networks with no cloud account at all. Bring us into the security review; we&rsquo;ll bring the founder for any deal of $899 or more.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Let me think about it / talk to my team.<span class="ic">+</span></button>
+        <div class="faq-a"><p>Fair &mdash; and we&rsquo;ll make it easy. Download the 14-day trial build for your platform: no sign-up form, no credit card. The in-app updater activates the trial automatically, so you test the full product on your own work, on your own timeline. If you want a 30-minute demo or the cost-of-ownership calc, the in-app updater&rsquo;s help menu has a one-click request &mdash; otherwise, no nurture sequence, no sales theatre.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ LICENSE & SUPPORT POLICY ════════════ -->
+<section class="policy" id="policy">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">Ownership, plainly stated</div>
+      <h2 class="sec-title">License &amp; Support Policy.</h2>
+      <p class="sec-sub">Seven rules that define what you own, what you can do with it, and exactly where our responsibility ends. Read it before you buy &mdash; there are no surprises after checkout.</p>
+    </div>
+    <div class="policy-grid">
+
+      <div class="policy-card">
+        <span class="policy-num">1</span>
+        <h4>You own the license forever</h4>
+        <p>One-time payment, perpetual license. No recurring fees, no seat tax, no annual renewal to keep using what you bought. The version you purchase keeps working for as long as you want to use it &mdash; on every machine you own, across re-installs and OS migrations.</p>
+        <span class="tag">Perpetual &middot; One-time</span>
+      </div>
+
+      <div class="policy-card">
+        <span class="policy-num">2</span>
+        <h4>Trial before you buy &mdash; fully self-served</h4>
+        <p>Download the trial build straight from this page and install it. The in-app updater activates and tracks your 14-day trial automatically &mdash; no sign-up form, no email verification, no seller contact during the trial. You test the full product on your own work. When the trial ends, the in-app updater prompts you to convert to a paid license. You decide.</p>
+        <span class="tag">Self-served &middot; In-app updater</span>
+      </div>
+
+      <div class="policy-card">
+        <span class="policy-num">3</span>
+        <h4>12 months of updates included</h4>
+        <p>Every purchase ships with 12 months of feature and patch updates, delivered through the same in-app updater that ran your trial. You self-serve version updates with a single click &mdash; no contact, no download page to hunt for. After 12 months, you keep using what you have, forever.</p>
+        <span class="tag">Self-served updates</span>
+      </div>
+
+      <div class="policy-card">
+        <span class="policy-num">4</span>
+        <h4>Configure, theme, extend, and integrate</h4>
+        <p>You have full autonomy inside the product: settings, themes, default templates, brand assets, and your own UI kits, icons, fonts, and design tokens. Extend the tool through the documented plugin API to fit your workflow, and integrate it with your stack &mdash; all without touching core code, and without asking us.</p>
+        <span class="tag">Full configuration autonomy</span>
+      </div>
+
+      <div class="policy-card">
+        <span class="policy-num">5</span>
+        <h4>The core software stays sealed</h4>
+        <p>The license is for use, not for derivative works. You may not modify, recompile, or patch the core source, redistribute or resell the software, circumvent activation or seat limits, or reverse-engineer the proprietary rendering engine. This protects version integrity &mdash; so every install is certified, real UI Max Pro.</p>
+        <span class="tag">Use, not derivative</span>
+      </div>
+
+      <div class="policy-card">
+        <span class="policy-num">6</span>
+        <h4>You manage your own deployment</h4>
+        <p>After purchase, deployment is yours: installations across your machines, backups, restores, file migrations, integrations, and team setup. You run it on your own infrastructure &mdash; including air-gapped networks &mdash; with no cloud account required. This is the self-sufficiency a perpetual license is supposed to deliver.</p>
+        <span class="tag">Self-managed</span>
+      </div>
+
+      <div class="policy-card policy-cutoff">
+        <span class="policy-num">7</span>
+        <h4>No post-sale support, modifications, or development from us</h4>
+        <p>Once the license key is delivered and your perpetual license is active, the seller&rsquo;s engagement ends. There is no obligation to provide site or UI modifications, ongoing &ldquo;how do I&hellip;&rdquo; support, training beyond the in-product onboarding, bug fixes (those are the vendor&rsquo;s warranty, routed via vendor support), or account recovery (handled through the self-serve portal). <b>Documentation, the plugin API, and the community are your support channels.</b> Any work you want from us after the sale is a separate, paid engagement under a new quote &mdash; take it or leave it.</p>
+        <span class="tag">The cutoff</span>
+      </div>
+
+    </div>
+    <p class="policy-note">
+      <b>Two purchase paths.</b> Standard tiers are self-checkout &mdash; instant license key. Discounted or custom quotes go through the seller directly (see <a href="#discounts">Discounts</a>): the seller quotes a price, accepts payment, and issues your license key plus the rights to use UI Max Pro. Whichever path you take, once your license is active, point 7 applies in full &mdash; no post-sale support, modifications, or development work from the seller.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ PLAYBOOK (How to sell this) ════════════ -->
+<section class="playbook" id="playbook">
+  <div class="container">
+    <div class="sec-head">
+      <div class="sec-kicker">For Sales &amp; Marketing Teams</div>
+      <h2 class="sec-title">How to pitch UI Max Pro.</h2>
+      <p class="sec-sub">The site above is the public pitch. Below is the internal playbook &mdash; the same one in the PDF planner &mdash; condensed for the field team. Toggle to expand.</p>
+    </div>
+    <div class="pb-toggle-wrap">
+      <button class="pb-toggle" id="pbToggle">Show the playbook <span class="ic">&#9660;</span></button>
+    </div>
+    <div class="pb-content">
+      <div class="pb-inner">
+        <div class="pb-grid">
+          <div class="pb-card">
+            <div class="lbl">The Mandate</div>
+            <h4>CEO commitment, twelve weeks</h4>
+            <div class="pb-mandate">&ldquo;Ship the product, sell the product, own the customer. No subscription theatre, no quarterly drift. Twelve focused weeks.&rdquo;</div>
+            <p>The launch target: <b>$1.2M in bookings</b> and <b>380 paid seats</b> in 12 weeks. Every conversation, every campaign, every demo should ladder back to that number.</p>
+          </div>
+
+          <div class="pb-card">
+            <div class="lbl">Discovery &mdash; BANT-CQ</div>
+            <h4>Disqualify fast</h4>
+            <p>Standard BANT plus two: <b>C</b>hampion strength and competing <b>Q</b>riority. A lead that fails any letter is not a demo &mdash; it&rsquo;s nurture, or a park.</p>
+            <ul>
+              <li><b>Budget</b> &mdash; who controls the line?</li>
+              <li><b>Authority</b> &mdash; who signs off?</li>
+              <li><b>Need</b> &mdash; what broke in the last 30 days?</li>
+              <li><b>Timeline</b> &mdash; by when is the decision real?</li>
+              <li><b>Champion</b> &mdash; who fights for it internally?</li>
+              <li><b>Priority</b> &mdash; what else is competing?</li>
+            </ul>
+          </div>
+
+          <div class="pb-card">
+            <div class="lbl">The 15-Minute Demo Spine</div>
+            <h4>Hit the three pillars in order</h4>
+            <ol>
+              <li><b>0&ndash;2 min:</b> Frame the buyer&rsquo;s need in their words.</li>
+              <li><b>2&ndash;5 min:</b> Ownership &mdash; perpetual license screen + cost calc.</li>
+              <li><b>5&ndash;10 min:</b> Velocity &mdash; live UI build + dev-handoff export.</li>
+              <li><b>10&ndash;12 min:</b> Sovereignty &mdash; toggle offline; show local files.</li>
+              <li><b>12&ndash;14 min:</b> Tier match &mdash; recommend tier, quote price.</li>
+              <li><b>14&ndash;15 min:</b> Close &mdash; ask: quote now or trial first?</li>
+            </ol>
+          </div>
+
+          <div class="pb-card">
+            <div class="lbl">Closing Moves</div>
+            <h4>Match the move to the stage</h4>
+            <ul>
+              <li><b>Trial-to-paid nudge</b> &mdash; Solo / small Studio, day 12.</li>
+              <li><b>Cost-of-ownership calc</b> &mdash; any price-blocker; send within 2h.</li>
+              <li><b>Tier-upward offer</b> &mdash; Studio with team-of-5 signal.</li>
+              <li><b>Founder escalation</b> &mdash; deal &ge; $899 OR agency &gt;5 seats.</li>
+              <li><b>Launch-window scarcity</b> &mdash; last 14 days of sprint only.</li>
+            </ul>
+            <a class="pb-link" href="UI_Max_Pro_Sales_Sprint_Planner.pdf" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Download the full 26-page Sales Sprint Planner (PDF)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ TRIAL CTA ════════════ -->
+<section class="trial" id="trial">
+  <div class="container trial-grid">
+    <div>
+      <div class="eyebrow">Start Your Trial</div>
+      <h2>Try UI Max Pro free for 14 days &mdash; fully self-served.</h2>
+      <p>No sign-up form. No sales call. No credit card. Download the trial build, install it, and the in-app updater activates your 14-day trial automatically. You test the full product on your own work, on your own timeline.</p>
+      <ul class="trial-bullets">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Download the trial build &mdash; no account, no seller contact</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Install on macOS, Windows, or Linux</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>The in-app updater activates and tracks your 14-day trial</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Full feature access &mdash; test it on real work</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>At trial end, the in-app updater prompts you to convert to a paid license</li>
+      </ul>
+    </div>
+    <div class="trial-download">
+      <h3>Download the trial</h3>
+      <p class="sub">14 days &middot; full features &middot; no credit card</p>
+      <div class="dl-platforms">
+        <a class="dl-btn" href="#" data-platform="macos">
+          <svg class="dl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="dl-txt"><b>macOS</b><small>Universal binary &middot; 142 MB</small></span>
+        </a>
+        <a class="dl-btn" href="#" data-platform="windows">
+          <svg class="dl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="dl-txt"><b>Windows</b><small>Windows 10 / 11 &middot; 138 MB</small></span>
+        </a>
+        <a class="dl-btn" href="#" data-platform="linux">
+          <svg class="dl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span class="dl-txt"><b>Linux</b><small>AppImage &middot; 151 MB</small></span>
+        </a>
+      </div>
+      <div class="dl-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        <span>After install, launch UI Max Pro &mdash; the in-app updater starts your 14-day trial automatically. No activation code, no email verification, no contact with us.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FOOTER ════════════ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#" class="logo"><span class="logo-mark"></span><span>UI Max Pro</span></a>
+        <p>A perpetual-license UI design tool for individual designers, small product teams, and design agencies. Buy it once. Own it forever.</p>
+        <span class="foot-badge">&#9670; Perpetual License &middot; No Subscription</span>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#compare">Compare</a></li>
+          <li><a href="#trial">Free trial</a></li>
+          <li><a href="#discounts">Discounts</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#pillars">Why Pro</a></li>
+          <li><a href="#playbook">Sales playbook</a></li>
+          <li><a href="UI_Max_Pro_Sales_Sprint_Planner.pdf">Planner PDF</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#policy">License terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Refund policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 UI Max Pro. All rights reserved.</span>
+      <span class="foot-contact">Discounts &amp; sales: <a href="mailto:vijayaraghavan1960@gmail.com?subject=UI%20Max%20Pro%20discount%20inquiry">vijayaraghavan1960@gmail.com</a> &middot; <a href="https://wa.me/96899061298" target="_blank" rel="noopener">WhatsApp +968 99061298</a></span>
+      <span>Runs on macOS &middot; Windows &middot; Linux</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Mobile nav toggle */
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  if(navToggle){
+    navToggle.addEventListener('click', function(){
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        navLinks.classList.remove('open');
+      });
+    });
+  }
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = btn.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* Playbook toggle */
+  var pbToggle = document.getElementById('pbToggle');
+  var pbSection = document.getElementById('playbook');
+  if(pbToggle){
+    pbToggle.addEventListener('click', function(){
+      pbSection.classList.toggle('open');
+      var lbl = pbToggle.childNodes[0];
+      lbl.textContent = pbSection.classList.contains('open') ? 'Hide the playbook ' : 'Show the playbook ';
+    });
+  }
+
+  /* Animated counters (run once on scroll into view) */
+  var counters = document.querySelectorAll('.stat .num[data-count]');
+  var counted = false;
+  function animateCount(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var suffix = el.getAttribute('data-suffix') || '';
+    var isFloat = String(target).indexOf('.') >= 0;
+    var start = 0, dur = 1400, t0 = null;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var v = start + (target - start) * (1 - Math.pow(1 - p, 3));
+      var display;
+      if(target >= 1000){
+        display = Math.floor(v).toLocaleString();
+      } else if(isFloat){
+        display = v.toFixed(1);
+      } else {
+        display = Math.floor(v);
+      }
+      el.textContent = display + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function maybeCount(){
+    if(counted) return;
+    var strip = document.querySelector('.stats-strip');
+    if(!strip) return;
+    var r = strip.getBoundingClientRect();
+    if(r.top < window.innerHeight && r.bottom > 0){
+      counted = true;
+      counters.forEach(animateCount);
+    }
+  }
+  window.addEventListener('scroll', maybeCount, {passive:true});
+  window.addEventListener('load', maybeCount);
+  maybeCount();
+
+  /* Trial download buttons &mdash; placeholder links. In production, set each
+     .dl-btn href to the real build URL for its data-platform. Here we only
+     stop the default "#" jump so the page feels right in the demo. */
+  document.querySelectorAll('.dl-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){ e.preventDefault(); });
+  });
+
+  /* Smooth-scroll for in-page anchors (already handled by CSS, this is a fallback for older browsers) */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if(id.length > 1){
+        var el = document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
